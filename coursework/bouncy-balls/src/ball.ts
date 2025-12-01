@@ -12,7 +12,7 @@ export abstract class Ball {
     this.x = x;
     this.size = size;
     this.color = color;
-
+    this.size = 
     this.y = 0; // Start on top
 
     this.velocityY = 0; // Gravity will pull us down

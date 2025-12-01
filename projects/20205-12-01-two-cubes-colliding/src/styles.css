@@ -1,0 +1,41 @@
+body{
+    font-family:arial, sans-serif;
+    color:white;
+    background-color:rgb(45, 45, 45);
+    display:flex;
+    gap:10px;
+
+}
+#simDiv{
+    position: relative;
+    background-color:black;
+    width:600px;
+    height:400px;
+    border:2px solid white;
+
+}
+#controls{
+    display:flex;
+    background-color:rgb(45, 45, 45);
+    width:400px;
+    height:110px;
+    border-radius:20px;
+    border:2px solid white;
+}
+#startBtn{
+    margin:5px;
+    height:100px;
+    border:2px solid white;
+    border-radius:20px;
+    
+    color:white;
+    background-color:rgb(33, 33, 33);
+}input{
+    background-color:rgb(33, 33, 33);
+    color:white;
+    width:70px;
+        border:1px solid white;
+    border-radius:5px;
+}.cube{
+    position: absolute;
+}
