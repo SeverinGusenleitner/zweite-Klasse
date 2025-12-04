@@ -1,0 +1,26 @@
+body{
+    margin:0;
+    padding:0;
+    background-color:#001e36;
+    color:white;
+    font-family:sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center
+}
+
+#aquarium{
+    background-image: url('../assets/background.png');
+    width:800px;
+    aspect-ratio:16/9;
+    background-size:cover;
+    border:5px solid #333;
+    border-radius:10px;
+    position:relative;
+    overflow:hidden;
+}
+.fish{  
+    position: absolute;
+}
