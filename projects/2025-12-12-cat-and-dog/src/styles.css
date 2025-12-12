@@ -1,0 +1,17 @@
+body{
+    background-color:rgb(57, 57, 57);
+    font-family:arial,sans-serif;
+    color:white;
+}
+#canvas{
+    width:400px;
+    height:400px;
+    background-image: url(../assets/living-space.png);
+    background-size:cover;
+    position: relative;
+    overflow: hidden; /* No scrollbars if fish swim out */
+}
+.animal {
+    position: absolute;
+    transform-origin: center; /* Transform origin is the center of the image */
+}
