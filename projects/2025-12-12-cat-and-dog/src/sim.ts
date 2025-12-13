@@ -20,11 +20,14 @@ export class Simulation {
     const dog = new Cat(x, y, catimg, 1);
     this.animals.push(dog);
   }
-  public animate() {
+  private animate() {
     for (const animal of this.animals) {
       animal.draw();
       animal.update();
     }
     requestAnimationFrame(() => this.animate()!);
+  }
+  public start(){
+    this.animate();
   }
 }
