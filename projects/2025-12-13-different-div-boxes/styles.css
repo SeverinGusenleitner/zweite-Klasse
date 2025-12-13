@@ -1,0 +1,28 @@
+body{
+    background:  rgb(67,67,67);
+    color:white;
+    font-family:arial,sans-serif;
+    display:flex;
+    justify-content: center;
+}
+
+#canvas{
+    position:relative;
+    width:500px;
+    height:500px;
+    border:5px solid #333;
+    border-radius:10px;
+}
+.box{
+    width:100px;
+    height:100px;
+    color:black;
+    cursor:pointer;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    font-size:1.5rem;
+}
+.box:hover{
+    scale:1.2;
+}
