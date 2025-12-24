@@ -12,7 +12,7 @@ export abstract class Animal {
     this.animal = document.createElement('img');
     this.animal.src = image;
     this.animal.style.width = `${this.width}px`;
-    this.animal.style.height = `${this.height}px`;
+    this.animal.style.height = `${this.height}pnx`;
     this.animal.classList.add('animal');
     this.animal.style.top = `${this.y}`;
     this.animal.style.left = `${this.x}`;
