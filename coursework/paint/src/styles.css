@@ -27,6 +27,14 @@
   }
 }
 #drawing-canvas {
+    Circle{
+        fill: red;
+        stroke: darkred;
+    }
+    .temp{
+        opacity:0.5;
+        fill:red;
+    }
 }
 .widget {
   border-radius: 8px;

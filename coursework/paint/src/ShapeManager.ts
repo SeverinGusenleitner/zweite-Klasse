@@ -2,7 +2,12 @@ import { Shape, Circle, Rectangle } from './shapes';
 import { ToolSelection, ToolType } from './ToolSelection';
 import { Point } from './shapes';
 // import { ToolSelectionWidget } from ".";
+type DrawingState = {
+  currentTempShape: Shape;
+  start: Point;
+};
 export class ShapeManager {
+  private currentTool?: DrawingState | undefined = undefined;
   private shapes: Shape[] = [];
   private container: SVGSVGElement;
 
@@ -12,21 +17,42 @@ export class ShapeManager {
       this.handleMouseDown(event);
     });
     this.container?.addEventListener('mouseup', (event) => {
-      console.log('up');
+      this.handleMouseUp(event);
     });
     this.container?.addEventListener('mousemove', (event) => {
-      console.log('move');
+      this.handleMouseMove(event);
     });
     this.container?.addEventListener('mouseleave', (event) => {
-      console.log('leave');
+      this.handleMouseLeave(event);
     });
   }
 
   private handleMouseDown(event: MouseEvent): void {
     const circleCenter = this.getSVGCoordinates(event);
     const circle = new Circle(this.container, circleCenter);
+    circle.tempMode= true;
     this.shapes.push(circle);
+    this.currentTool = {
+        currentTempShape: circle,
+        start: circleCenter
+    };
+    
   }
+  private handleMouseUp(event: MouseEvent): void {
+    this.currentTool!.currentTempShape.tempMode = false;
+
+    this.currentTool = undefined;
+  }
+  private handleMouseMove(event: MouseEvent): void {
+    if(this.currentTool){
+        this.currentTool.currentTempShape.updatePosition(this.currentTool.start,this.getSVGCoordinates(event));
+    }
+  }
+  private handleMouseLeave(event: MouseEvent): void {
+    this.currentTool!.currentTempShape.tempMode = false;
+    this.currentTool = undefined;
+}
+
   private getSVGCoordinates(event: MouseEvent): Point {
     // This method converts mouse event coordinates to SVG coordinates
     // (position relative to the SVG's left/top, taking viewBox into account)
