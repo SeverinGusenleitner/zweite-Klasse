@@ -15,7 +15,7 @@ export class ShapeManager {
   constructor(svgContainerId: string = 'drawing-canvas') {
     this.container = document.getElementById(svgContainerId) as unknown as SVGSVGElement;
     this.container?.addEventListener('mousedown', (event) => {
-      this.handleMouseDown(event);
+      this.handleMousedown(event);
     });
     this.container?.addEventListener('mouseup', (event) => {
       this.handleMouseUp(event);
@@ -27,30 +27,36 @@ export class ShapeManager {
       this.handleMouseLeave(event);
     });
   }
-
-  private handleMouseDown(event: MouseEvent): void {
+  private handleMousedown(event: MouseEvent) {
     if (this.currentToolType === ToolType.POINTER) {
-      for (let i = this.shapes.length - 1; i >= 0; i--) {
-        const start = this.getSVGCoordinates(event);
-        if (this.shapes[i]!.contains(start)) {
-          this.unselectAll();
-          this.shapes[i]!.selected = true;
-        }
-      }
+      this.handleMousePointerDown(event);
     } else {
+      this.startDrawingShape(event);
+    }
+  }
+  private startDrawingShape(event: MouseEvent) {
+    const start = this.getSVGCoordinates(event);
+    let newShape: Shape;
+    if (this.currentToolType === ToolType.CIRCLE) {
+      newShape = new Circle(this.container, start);
+    } else {
+      newShape = new Rectangle(this.container, start);
+    }
+    newShape.tempMode = true;
+    this.shapes.push(newShape);
+    this.currentTool = {
+      currentTempShape: newShape,
+      start: start,
+    };
+  }
+  private handleMousePointerDown(event: MouseEvent): void {
+    this.unselectAll();
+    for (let i = this.shapes.length - 1; i >= 0; i--) {
       const start = this.getSVGCoordinates(event);
-      let newShape: Shape;
-      if (this.currentToolType === ToolType.CIRCLE) {
-        newShape = new Circle(this.container, start);
-      } else {
-        newShape = new Rectangle(this.container, start);
+      if (this.shapes[i]!.contains(start)) {
+        this.shapes[i]!.selected = true;
+        return;
       }
-      newShape.tempMode = true;
-      this.shapes.push(newShape);
-      this.currentTool = {
-        currentTempShape: newShape,
-        start: start,
-      };
     }
   }
   private handleMouseUp(event: MouseEvent): void {
