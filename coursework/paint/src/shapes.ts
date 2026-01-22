@@ -7,7 +7,6 @@ export abstract class Shape {
   public abstract set tempMode(isTemp: boolean);
   public abstract contains(p: Point): boolean;
   public abstract set selected(isSelected:boolean);
-  public abstract unselect():void;
 
   
 }
@@ -62,9 +61,7 @@ export class Circle extends Shape {
       
     }
   }
-   public override unselect(): void {
-     this.circleElement.classList.remove("selected")
-   }
+
 }
 
 export class Rectangle extends Shape {
@@ -115,7 +112,5 @@ export class Rectangle extends Shape {
       
     }
   }
-     public override unselect(): void {
-     this.rectElement.classList.remove("selected")
-   }
+
 }

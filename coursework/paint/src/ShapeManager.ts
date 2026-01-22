@@ -102,7 +102,7 @@ export class ShapeManager {
   }
   private unselectAll() {
     for (let i = 0; i < this.shapes.length; i++) {
-      this.shapes[i]?.unselect();
+      this.shapes[i]!.selected = false;
     }
   }
 }
