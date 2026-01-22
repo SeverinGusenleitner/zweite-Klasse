@@ -28,15 +28,17 @@
 }
 #drawing-canvas {
   Circle {
-    fill: rgba(255, 98, 0, 0.75);
-    stroke: rgb(255, 98, 0);
+    fill: rgb(255, 98, 0);
+    stroke: rgb(168, 65, 0);
   }
   Circle.temp {
     opacity: 0.5;
     fill: rgba(255, 98, 0, 0.2);
   }
   Rect {
-    fill: rgba(153, 0, 255, 0.75);
+    fill: rgb(153, 0, 255);
+    stroke: rgb(96, 0, 160);
+
   }
   Rect.temp{
     fill: rgba(153, 0, 255, 0.2);
