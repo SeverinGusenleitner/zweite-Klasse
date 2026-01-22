@@ -27,14 +27,26 @@
   }
 }
 #drawing-canvas {
-    Circle{
-        fill: red;
-        stroke: darkred;
-    }
-    .temp{
-        opacity:0.5;
-        fill:red;
-    }
+  Circle {
+    fill: rgba(255, 98, 0, 0.75);
+    stroke: rgb(255, 98, 0);
+  }
+  Circle.temp {
+    opacity: 0.5;
+    fill: rgba(255, 98, 0, 0.2);
+  }
+  Rect {
+    fill: rgba(153, 0, 255, 0.75);
+  }
+  Rect.temp{
+    fill: rgba(153, 0, 255, 0.2);
+    stroke: rgba(153, 0, 255);
+  }
+  .selected{
+    stroke: yellow;
+    stroke-width: 5px;
+  }
+
 }
 .widget {
   border-radius: 8px;

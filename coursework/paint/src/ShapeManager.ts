@@ -8,6 +8,7 @@ type DrawingState = {
 };
 export class ShapeManager {
   private currentTool?: DrawingState | undefined = undefined;
+  public currentToolType: ToolType = ToolType.CIRCLE;
   private shapes: Shape[] = [];
   private container: SVGSVGElement;
 
@@ -28,30 +29,47 @@ export class ShapeManager {
   }
 
   private handleMouseDown(event: MouseEvent): void {
-    const circleCenter = this.getSVGCoordinates(event);
-    const circle = new Circle(this.container, circleCenter);
-    circle.tempMode= true;
-    this.shapes.push(circle);
-    this.currentTool = {
-        currentTempShape: circle,
-        start: circleCenter
-    };
-    
+    if (this.currentToolType === ToolType.POINTER) {
+      for (let i = this.shapes.length - 1; i >= 0; i--) {
+        const start = this.getSVGCoordinates(event);
+        if (this.shapes[i]!.contains(start)) {
+          this.unselectAll();
+          this.shapes[i]!.selected = true;
+        }
+      }
+    } else {
+      const start = this.getSVGCoordinates(event);
+      let newShape: Shape;
+      if (this.currentToolType === ToolType.CIRCLE) {
+        newShape = new Circle(this.container, start);
+      } else {
+        newShape = new Rectangle(this.container, start);
+      }
+      newShape.tempMode = true;
+      this.shapes.push(newShape);
+      this.currentTool = {
+        currentTempShape: newShape,
+        start: start,
+      };
+    }
   }
   private handleMouseUp(event: MouseEvent): void {
-    this.currentTool!.currentTempShape.tempMode = false;
-
-    this.currentTool = undefined;
+    if (this.currentTool) {
+      this.currentTool!.currentTempShape.tempMode = false;
+      this.currentTool = undefined;
+    }
   }
   private handleMouseMove(event: MouseEvent): void {
-    if(this.currentTool){
-        this.currentTool.currentTempShape.updatePosition(this.currentTool.start,this.getSVGCoordinates(event));
+    if (this.currentTool) {
+      this.currentTool.currentTempShape.updatePosition(this.currentTool.start, this.getSVGCoordinates(event));
     }
   }
   private handleMouseLeave(event: MouseEvent): void {
-    this.currentTool!.currentTempShape.tempMode = false;
-    this.currentTool = undefined;
-}
+    if (this.currentTool) {
+      this.currentTool!.currentTempShape.tempMode = false;
+      this.currentTool = undefined;
+    }
+  }
 
   private getSVGCoordinates(event: MouseEvent): Point {
     // This method converts mouse event coordinates to SVG coordinates
@@ -75,5 +93,10 @@ export class ShapeManager {
       x: transformed?.x || 0,
       y: transformed?.y || 0,
     };
+  }
+  private unselectAll() {
+    for (let i = 0; i < this.shapes.length; i++) {
+      this.shapes[i]?.unselect();
+    }
   }
 }
