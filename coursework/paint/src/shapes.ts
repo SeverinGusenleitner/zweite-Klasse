@@ -114,3 +114,46 @@ export class Rectangle extends Shape {
   }
 
 }
+
+
+export class Line extends Shape{
+   private lineElement: SVGLineElement;
+  private position: Point = { x: 0, y: 0 };
+  private startpos: Point = {x:0, y:0};
+
+  constructor(
+    svgContainer: SVGSVGElement,
+    protected start: Point,
+  ) {
+    super(svgContainer, start);
+    this.lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    this.startpos = start;
+    this.lineElement.setAttribute('x1', `${start.x}`);
+    this.lineElement.setAttribute('y1', `${start.y}`);
+    this.lineElement.setAttribute('x2', `${start.x}`);
+    this.lineElement.setAttribute('y2', `${start.y}`);
+
+    svgContainer.appendChild(this.lineElement);
+  }
+  public override updatePosition(start:Point, end: Point): void {
+    this.position = end;
+    this.startpos = start;
+    
+    this.lineElement.setAttribute('x1', `${this.startpos.x}`);
+    this.lineElement.setAttribute('y1', `${this.startpos.y}`);
+    this.lineElement.setAttribute('x2', `${end.x}`);
+    this.lineElement.setAttribute('y2', `${end.y}`);
+  }
+  public override set tempMode(isTemp: boolean) {
+    if (isTemp) {
+      this.lineElement.classList.add('temp');
+    } else {
+      this.lineElement.classList.remove('temp');
+    }
+  }
+
+  public override contains(p: Point): boolean {
+
+  return true;
+  }
+}
