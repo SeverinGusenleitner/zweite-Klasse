@@ -153,7 +153,42 @@ export class Line extends Shape{
   }
 
   public override contains(p: Point): boolean {
-
-  return true;
+  return false;
   }
+}
+
+export class Triangle extends Shape {
+  private triangleElement: SVGPolygonElement;
+  private points;
+
+  constructor(
+    svgContainer: SVGSVGElement,
+    protected start: Point,
+  ) {
+    super(svgContainer, start);
+    this.triangleElement = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    this.points = `${start.x},${start.y} ${start.x},${start.y} ${start.x},${start.y}`
+    this.triangleElement.setAttribute('points', this.points);
+
+
+    svgContainer.appendChild(this.triangleElement);
+  }
+  public override updatePosition(start: Point, end: Point): void {
+    const dist = Math.sqrt((start.x - end.x) * (start.x - end.x) + (start.y - end.y) * (start.y - end.y));
+
+    this.points = `${start.x},${start.y} ${end.x-dist},${end.y} ${end.x+dist},${end.y}`
+    this.triangleElement.setAttribute("points", this.points)
+  }
+  public override set tempMode(isTemp: boolean) {
+    if (isTemp) {
+      this.triangleElement.classList.add('temp');
+    } else {
+      this.triangleElement.classList.remove('temp');
+    }
+  }
+
+  public override contains(p: Point): boolean {
+    return false;
+  }
+
 }

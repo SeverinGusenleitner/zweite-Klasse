@@ -1,4 +1,4 @@
-import { Shape, Circle, Rectangle,Line } from './shapes';
+import { Shape, Circle, Rectangle, Line, Triangle } from './shapes';
 import { ToolSelection, ToolType } from './ToolSelection';
 import { Point } from './shapes';
 // import { ToolSelectionWidget } from ".";
@@ -39,11 +39,12 @@ export class ShapeManager {
     let newShape: Shape;
     if (this.currentToolType === ToolType.CIRCLE) {
       newShape = new Circle(this.container, start);
-    } else if(this.currentToolType === ToolType.RECTANGLE){
+    } else if (this.currentToolType === ToolType.RECTANGLE) {
       newShape = new Rectangle(this.container, start);
-    }else{
-            newShape = new Line(this.container, start);
-
+    } else if (this.currentToolType === ToolType.LINE) {
+      newShape = new Line(this.container, start);
+    } else {
+      newShape = new Triangle(this.container, start);
     }
     newShape.tempMode = true;
     this.shapes.push(newShape);

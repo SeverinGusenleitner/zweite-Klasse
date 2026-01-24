@@ -55,6 +55,13 @@
   Line.temp{
     stroke:red;
   }
+  Polygon{
+    fill:blue;
+  }
+  Polygon.temp{
+    fill:rgba(0, 0, 255,0.2);
+    stroke:blue;
+  }
 
   
 }
