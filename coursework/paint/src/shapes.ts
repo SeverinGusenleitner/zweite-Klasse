@@ -173,7 +173,7 @@ export class Triangle extends Shape {
   public override updatePosition(start: Point, end: Point): void {
     const dist = Math.sqrt((start.x - end.x) * (start.x - end.x) + (start.y - end.y) * (start.y - end.y));
 
-    this.points = `${start.x},${start.y} ${end.x - dist},${end.y} ${end.x + dist},${end.y}`;
+    this.points = `${start.x},${start.y} ${end.x - dist/2},${end.y} ${end.x + dist/2},${end.y}`;
     this.triangleElement.setAttribute('points', this.points);
   }
   public override set tempMode(isTemp: boolean) {
