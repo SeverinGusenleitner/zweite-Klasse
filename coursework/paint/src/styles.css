@@ -38,32 +38,29 @@
   Rect {
     fill: rgb(153, 0, 255);
     stroke: rgb(96, 0, 160);
-
   }
-  Rect.temp{
+  Rect.temp {
     fill: rgba(153, 0, 255, 0.2);
     stroke: rgba(153, 0, 255);
   }
-  .selected{
+  .selected {
     stroke: yellow;
     stroke-width: 5px;
   }
-  Line{
-    stroke-width:2px;
-    stroke:black;
+  Line {
+    stroke-width: 2px;
+    stroke: black;
   }
-  Line.temp{
-    stroke:red;
+  Line.temp {
+    stroke: red;
   }
-  Polygon{
-    fill:blue;
+  Polygon {
+    fill: blue;
   }
-  Polygon.temp{
-    fill:rgba(0, 0, 255,0.2);
-    stroke:blue;
+  Polygon.temp {
+    fill: rgba(0, 0, 255, 0.2);
+    stroke: blue;
   }
-
-  
 }
 .widget {
   border-radius: 8px;

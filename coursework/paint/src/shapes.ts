@@ -6,9 +6,7 @@ export abstract class Shape {
   public abstract updatePosition(start: Point, end: Point): void;
   public abstract set tempMode(isTemp: boolean);
   public abstract contains(p: Point): boolean;
-  public abstract set selected(isSelected:boolean);
-
-  
+  public abstract set selected(isSelected: boolean);
 }
 
 export type Point = {
@@ -52,16 +50,13 @@ export class Circle extends Shape {
     const dist = Math.sqrt((p.x - this.center.x) * (p.x - this.center.x) + (p.y - this.center.y) * (p.y - this.center.y));
     return dist <= this.radius;
   }
-  public override set selected(isSelected:boolean){
-    if(isSelected){
-      this.circleElement.classList.add("selected");
-    }
-    else{
-      this.circleElement.classList.remove("selected");
-      
+  public override set selected(isSelected: boolean) {
+    if (isSelected) {
+      this.circleElement.classList.add('selected');
+    } else {
+      this.circleElement.classList.remove('selected');
     }
   }
-
 }
 
 export class Rectangle extends Shape {
@@ -103,23 +98,19 @@ export class Rectangle extends Shape {
   public override contains(p: Point): boolean {
     return p.x >= this.position.x && p.x <= this.position.x + this.size.width && p.y > this.position.y && p.y < this.position.y + this.size.height;
   }
-    public override set selected(isSelected:boolean){
-    if(isSelected){
-      this.rectElement.classList.add("selected");
-    }
-    else{
-      this.rectElement.classList.remove("selected");
-      
+  public override set selected(isSelected: boolean) {
+    if (isSelected) {
+      this.rectElement.classList.add('selected');
+    } else {
+      this.rectElement.classList.remove('selected');
     }
   }
-
 }
 
-
-export class Line extends Shape{
-   private lineElement: SVGLineElement;
+export class Line extends Shape {
+  private lineElement: SVGLineElement;
   private position: Point = { x: 0, y: 0 };
-  private startpos: Point = {x:0, y:0};
+  private startpos: Point = { x: 0, y: 0 };
 
   constructor(
     svgContainer: SVGSVGElement,
@@ -135,10 +126,10 @@ export class Line extends Shape{
 
     svgContainer.appendChild(this.lineElement);
   }
-  public override updatePosition(start:Point, end: Point): void {
+  public override updatePosition(start: Point, end: Point): void {
     this.position = end;
     this.startpos = start;
-    
+
     this.lineElement.setAttribute('x1', `${this.startpos.x}`);
     this.lineElement.setAttribute('y1', `${this.startpos.y}`);
     this.lineElement.setAttribute('x2', `${end.x}`);
@@ -153,7 +144,14 @@ export class Line extends Shape{
   }
 
   public override contains(p: Point): boolean {
-  return false;
+    return false;
+  }
+  public override set selected(isSelected: boolean) {
+    if (isSelected) {
+      this.lineElement.classList.add('selected');
+    } else {
+      this.lineElement.classList.remove('selected');
+    }
   }
 }
 
@@ -167,17 +165,16 @@ export class Triangle extends Shape {
   ) {
     super(svgContainer, start);
     this.triangleElement = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    this.points = `${start.x},${start.y} ${start.x},${start.y} ${start.x},${start.y}`
+    this.points = `${start.x},${start.y} ${start.x},${start.y} ${start.x},${start.y}`;
     this.triangleElement.setAttribute('points', this.points);
-
 
     svgContainer.appendChild(this.triangleElement);
   }
   public override updatePosition(start: Point, end: Point): void {
     const dist = Math.sqrt((start.x - end.x) * (start.x - end.x) + (start.y - end.y) * (start.y - end.y));
 
-    this.points = `${start.x},${start.y} ${end.x-dist},${end.y} ${end.x+dist},${end.y}`
-    this.triangleElement.setAttribute("points", this.points)
+    this.points = `${start.x},${start.y} ${end.x - dist},${end.y} ${end.x + dist},${end.y}`;
+    this.triangleElement.setAttribute('points', this.points);
   }
   public override set tempMode(isTemp: boolean) {
     if (isTemp) {
@@ -190,5 +187,11 @@ export class Triangle extends Shape {
   public override contains(p: Point): boolean {
     return false;
   }
-
+  public override set selected(isSelected: boolean) {
+    if (isSelected) {
+      this.triangleElement.classList.add('selected');
+    } else {
+      this.triangleElement.classList.remove('selected');
+    }
+  }
 }

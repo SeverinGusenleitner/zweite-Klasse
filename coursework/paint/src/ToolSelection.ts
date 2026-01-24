@@ -11,13 +11,16 @@ export class ToolSelection {
   private currentToolValue: ToolType = ToolType.POINTER;
   private toolContainer: HTMLDivElement;
 
-  constructor(private callback: ToolChangeCallBack, toolContainerId: string = 'tool-container') {
+  constructor(
+    private callback: ToolChangeCallBack,
+    toolContainerId: string = 'tool-container',
+  ) {
     this.toolContainer = document.getElementById(toolContainerId) as HTMLDivElement;
 
     this.toolContainer.appendChild(this.createToolButton(ToolType.CIRCLE, 'Circle', true));
     this.toolContainer.appendChild(this.createToolButton(ToolType.RECTANGLE, 'Rectangle'));
-    this.toolContainer.appendChild(this.createToolButton(ToolType.LINE, "Line"));
-    this.toolContainer.appendChild(this.createToolButton(ToolType.TRIANGLE, "Triangle"))
+    this.toolContainer.appendChild(this.createToolButton(ToolType.LINE, 'Line'));
+    this.toolContainer.appendChild(this.createToolButton(ToolType.TRIANGLE, 'Triangle'));
     this.toolContainer.appendChild(this.createToolButton(ToolType.POINTER, 'Pointer'));
   }
 
