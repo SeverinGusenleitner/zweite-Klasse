@@ -2,4 +2,4 @@ import { ShapeManager } from './ShapeManager';
 import './styles.css';
 import { ToolSelection, ToolType } from './ToolSelection';
 const shapeManager = new ShapeManager();
-const ToolSelectionWidget = new ToolSelection((toolType) => (shapeManager.currentToolType = toolType));
+const ToolSelectionWidget = new ToolSelection((toolType: ToolType) => (shapeManager.currentToolType = toolType));
