@@ -6,9 +6,9 @@ export enum Tooltype{
 
 }
 export class ControlMenu{
-    private controlMenu: HTMLUListElement
+    private controlMenu: HTMLDivElement
     constructor( private callBack:CallBack, controlMenuId:string = "controls"){
-        this.controlMenu = document.getElementById(controlMenuId) as HTMLUListElement;
+        this.controlMenu = document.getElementById(controlMenuId) as HTMLDivElement;
 
         this.controlMenu.appendChild(this.addNewButton(Tooltype.CIRCLE,"Circle"));
         this.controlMenu.appendChild(this.addNewButton(Tooltype.SQUARE,"Square"));
