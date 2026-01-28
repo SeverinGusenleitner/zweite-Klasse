@@ -39,7 +39,7 @@ export class Square extends Shape{
         return this.length*this.length;
     }
     override get description():string{
-        return `Square with area of ${Math.round(this.area)}& a width of ${Math.round(this.length)}`;
+        return `Square with area of ${Math.round(this.area)} & a width of ${Math.round(this.length)}`;
     }
 
 }

@@ -4,12 +4,12 @@ export class ShapeManager{
     private shapes:Shape[] = []
     public createNewShape(button:Tooltype){
         let shape:Shape
-        const randnum = Math.random()*99+1
+        const randNum = Math.random()*99+1
         if(button === Tooltype.CIRCLE){
-            shape = new Circle(randnum);
+            shape = new Circle(randNum);
         }
         else{
-            shape = new Square(randnum);
+            shape = new Square(randNum);
         }
         this.shapes.push(shape);
     }
