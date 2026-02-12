@@ -18,6 +18,10 @@
 	<a href="/calculator">Calculator</a>
 	<a href="/todo">Todo List</a>
 	<a href="/counter">Counter</a>
+	<a href="/stopwatch">Stopwatch</a>
+	<a href="/flappybird">Flappy Bird</a>
+	<a href="/qix">Qix</a>
+	<a href="/snake">Snake</a>
 </nav>
 
 <!-- Render the page content of the current route -->

@@ -12,9 +12,3 @@
 
 <button type="button"onclick = {increment}>increment</button>
 <button type="button"onclick = {decrement}>decrement</button>
-
-<style>
-    h1{
-        color:chartreuse;
-    }
-</style>
