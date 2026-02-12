@@ -6,7 +6,6 @@ const circleBtn = document.getElementById('circle-btn') as HTMLButtonElement;
 const rectangleBtn = document.getElementById('rectangle-btn') as HTMLButtonElement;
 const squareBtn = document.getElementById('square-btn') as HTMLButtonElement;
 const lineBtn = document.getElementById('line-btn') as HTMLButtonElement;
-
 const areaHeader = document.getElementById('area-header') as HTMLHeadElement;
 
 let shapeList: Shape[] = [];

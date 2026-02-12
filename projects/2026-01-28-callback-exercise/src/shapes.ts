@@ -17,7 +17,7 @@ export class Circle extends Shape{
         this.ulElement.appendChild(this.li);
     }
     override  get area():number{
-        return this.length*Math.PI*Math.PI;
+        return this.length*this.length*Math.PI;
     }
     override get description():string{
         return `Circle with area of ${Math.round(this.area)} & a radius of ${Math.round(this.length)}`;

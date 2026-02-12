@@ -1,10 +1,10 @@
 export abstract class Shape {
-  protected readonly list: HTMLUListElement = document.getElementById('shapes-list') as HTMLUListElement;
+  protected list: HTMLUListElement
   protected element: HTMLLIElement;
   
-  constructor() {
+  constructor(shapesListId:string = "shapes-list") {
     this.element = document.createElement('li') as HTMLLIElement;
-
+    this.list = document.getElementById(shapesListId) as HTMLUListElement;
     this.list.appendChild(this.element);
   }
 
@@ -15,8 +15,8 @@ export abstract class Shape {
 }
 
 export class Rectangle extends Shape {
-  constructor(private width: number, private height: number) {
-    super();
+  constructor(private width: number, private height: number,shapesListId:string = "shapes-list") {
+    super(shapesListId);
     this.element.textContent = this.description;
   }
 
@@ -30,7 +30,7 @@ export class Rectangle extends Shape {
 }
 
 export class Square extends Rectangle {
-  constructor(private size: number) {
+  constructor(private size: number,shapesListId:string = "shapes-list") {
     super(size, size);
     this.element.textContent = this.description;
   }
