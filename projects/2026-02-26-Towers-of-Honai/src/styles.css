@@ -6,7 +6,6 @@ body {
 #game {
   svg {
     background-color: #0f172a;
-    border: 1px solid white;
     width: 800px;
     height: 500px;
   }
