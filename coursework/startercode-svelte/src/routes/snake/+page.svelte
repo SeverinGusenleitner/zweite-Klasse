@@ -8,7 +8,7 @@
   let direction = { x: 0, y: 0 };
   let gridSize = 15;
   let isGameRunning = false;
-  let gameLoop: number;
+  let gameLoop: ReturnType<typeof setInterval>;
   let score = 0;
 
   function startGame() {
@@ -33,6 +33,9 @@
 
   function updateGame() {
     if (!isGameRunning) return;
+
+    console.log('Current direction:', direction);
+    console.log('Snake before move:', snake);
 
     // Move snake
     const head = { x: snake[0].x + direction.x * gridSize, y: snake[0].y + direction.y * gridSize };
@@ -61,11 +64,33 @@
       snake.pop();
     }
 
+    console.log('Snake after move:', snake);
+
     // Draw everything
     drawGame();
   }
 
+  function drawGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the snake
+    ctx.fillStyle = 'green';
+    snake.forEach((segment) => {
+      ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+    });
+
+    // Draw the food
+    ctx.fillStyle = 'red';
+    ctx.fillRect(food.x, food.y, gridSize, gridSize);
+
+    // Draw the score
+    ctx.fillStyle = 'black';
+    ctx.font = '16px Arial';
+    ctx.fillText(`Score: ${score}`, 10, 20);
+  }
+
   function changeDirection(event: KeyboardEvent) {
+    console.log('Key pressed:', event.key);
     if (event.key === 'ArrowUp' && direction.y === 0) {
       direction = { x: 0, y: -1 };
     } else if (event.key === 'ArrowDown' && direction.y === 0) {
@@ -75,6 +100,7 @@
     } else if (event.key === 'ArrowRight' && direction.x === 0) {
       direction = { x: 1, y: 0 };
     }
+    console.log('Direction updated to:', direction);
   }
 
   onMount(() => {
