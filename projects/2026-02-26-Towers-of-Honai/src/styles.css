@@ -4,6 +4,12 @@ body {
 }
 
 #game {
+  svg {
+    background-color: #0f172a;
+    border: 1px solid white;
+    width: 800px;
+    height: 500px;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,19 +19,46 @@ body {
     display: flex;
     gap: 200px;
     .move {
+      font-size: 1.5rem;
       background-color: #7fc3d9;
       border: none;
       width: 40px;
       height: 50px;
-      border-radius: 30%;
+      border-radius: 15px;
     }
     .move:hover {
+      cursor: pointer;
       background-color: #adebff;
     }
   }
 
   #reset-and-moves {
     display: flex;
-        gap: 400px;
+    gap: 800px;
+    #reset {
+      border-radius: 15px;
+      font-size: 1.5rem;
+      color: white;
+      background-color: #ef4444;
+      border: none;
+      width: 120px;
+      height: 40px;
+    }
+    #reset:hover {
+      background-color: #e86e6e;
+      cursor: pointer;
+    }
+    #moves {
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background-color: #adebff;
+      border: none;
+      width: 120px;
+      height: 40px;
+      border-radius: 15px;
+      font-size: 1.5rem;
+    }
   }
 }
