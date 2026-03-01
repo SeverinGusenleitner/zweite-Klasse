@@ -8,6 +8,7 @@ body {
     background-color: #0f172a;
     width: 800px;
     height: 500px;
+    border: 1px solid white;
   }
   display: flex;
   flex-direction: column;
@@ -32,8 +33,10 @@ body {
   }
 
   #reset-and-moves {
+    width: 85%; 
     display: flex;
-    gap: 800px;
+    justify-content: space-between; 
+    align-items: center; 
     #reset {
       border-radius: 15px;
       font-size: 1.5rem;
