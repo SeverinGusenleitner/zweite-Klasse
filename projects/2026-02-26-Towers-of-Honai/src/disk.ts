@@ -3,14 +3,17 @@ export class Disk{
     private svgElement:SVGSVGElement;
     private width: number = 100;
     private readonly HEIGHT:number = 50;
-    private  x:number =  155;
+    private  x:number =  250;
     private  y:number =  180;
     
     constructor(public size:number,color:string,svgId:string = "gameCanvas"){
         this.svgElement = document.getElementById(svgId)as unknown as SVGSVGElement;
         this.rectElement = document.createElementNS("http://www.w3.org/2000/svg","rect");
         this.y += 100*size/2;
-        this.width *= size*0.5;
+        this.width *= size*0.55;
+        this.x -= this.width/2;
+        this.rectElement.setAttribute("rx","20");
+        this.rectElement.setAttribute("ry","20");
         this.rectElement.setAttribute("x",`${this.x}`);
         this.rectElement.setAttribute("y",`${this.y}`);
         this.rectElement.setAttribute("width",`${this.width}`);

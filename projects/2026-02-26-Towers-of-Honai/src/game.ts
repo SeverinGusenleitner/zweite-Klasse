@@ -13,11 +13,11 @@ export class Game {
     this.output = document.getElementById(outId) as HTMLSpanElement;
     this.createTowersAndBase();
     this.createInitialStack();
-
   }
   private createInitialStack() {
     const colors = ["#F97316","#EAB308","#22C55E","#06B6D4","#6366F1"]
     const stack = [];
+    this.stackOfStacks = [];
     for (let i = 4; i >= 1; i--) {
       const disk = new Disk(i, colors[i]!);
       stack.push(disk);
@@ -48,7 +48,6 @@ export class Game {
   }
 
   public handleInput(button:number) {
-
     if(this.move.start === -1){
       this.move.start = button;
     }
@@ -64,7 +63,7 @@ export class Game {
   }
   private moveDisk(start: number, end: number) {
 
-    if (typeof start !== 'number' || typeof end !== 'number' || start === end || this.stackOfStacks[start - 1]?.length === 0) {
+    if (typeof start !== 'number' || typeof end !== 'number' || start === end || this.stackOfStacks[start]?.length === 0) {
       alert('Invalid input or move!');
       return;
     }
@@ -87,9 +86,11 @@ export class Game {
       alert('Invalid move! You cannot place a larger disk on a smaller one.');
       return;
     }
-
+    disk.updatePos(100, 100);
     fromStack.pop();
     toStack.push(disk); // Pop and push only if valid
+    this.moves++;
+    this.output.textContent = `${this.moves}`
 
   }
   public reset() {
