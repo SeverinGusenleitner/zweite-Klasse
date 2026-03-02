@@ -16,9 +16,10 @@ export class Game {
 
   }
   private createInitialStack() {
+    const colors = ["#F97316","#EAB308","#22C55E","#06B6D4","#6366F1"]
     const stack = [];
     for (let i = 4; i >= 1; i--) {
-      const disk = new Disk(i, 'blue');
+      const disk = new Disk(i, colors[i]!);
       stack.push(disk);
     }
     this.stackOfStacks.push(stack);
@@ -30,7 +31,7 @@ export class Game {
   private createTowersAndBase() {
     const woodbase = document.createElementNS('http://www.w3.org/2000/svg', 'rect') as SVGRectElement;
     woodbase.setAttribute('height', '30px');
-    woodbase.setAttribute('width', '800px');
+    woodbase.setAttribute('width', '1000px');
     woodbase.setAttribute('x', '0');
     woodbase.setAttribute('y', '430');
     woodbase.setAttribute('fill', '#5C4033');
@@ -39,7 +40,7 @@ export class Game {
       const pillar = document.createElementNS('http://www.w3.org/2000/svg', 'rect') as SVGRectElement;
       pillar.setAttribute('height', '380px');
       pillar.setAttribute('width', '15px');
-      pillar.setAttribute('x', `${240 * i + 155}px`);
+      pillar.setAttribute('x', `${i*250+250-7.5}px`);
       pillar.setAttribute('y', `${50}px`);
       pillar.setAttribute('fill', '#94A3B8');
       this.svgElement.appendChild(pillar);
