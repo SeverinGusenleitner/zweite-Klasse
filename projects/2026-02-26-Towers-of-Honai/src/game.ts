@@ -52,7 +52,7 @@ export class Game {
       this.move.start = button;
     }
     else if(this.move.end ===-1){
-      this.move.end = button;
+      this.move.end = button; 
     }
     
     if(this.move.start !== -1 && this.move.end !== -1){

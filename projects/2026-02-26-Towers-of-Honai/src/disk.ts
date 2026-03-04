@@ -30,4 +30,12 @@ export class Disk{
         this.rectElement.setAttribute("x", `${this.x}`);
         this.rectElement.setAttribute("y", `${this.y}`);
     }
+    public set selected(selected:boolean){
+        if(selected === true){
+            this.rectElement.classList = "selected"
+        }
+        else{
+            this.rectElement.classList = "";
+        }
+    }
 }
