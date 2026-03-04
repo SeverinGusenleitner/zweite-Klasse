@@ -12,6 +12,7 @@ export class Disk{
         this.y += 100*size/2;
         this.width *= size*0.55;
         this.x -= this.width/2;
+        
         this.rectElement.setAttribute("rx","20");
         this.rectElement.setAttribute("ry","20");
         this.rectElement.setAttribute("x",`${this.x}`);
@@ -24,10 +25,9 @@ export class Disk{
 
     }
     public updatePos(x:number,y:number){
-        this.x = x;
+        this.x += x;
         this.y = y;
-        this.rectElement.setAttribute("x", `${x}`);
-        this.rectElement.setAttribute("y", `${y}`);
-        
+        this.rectElement.setAttribute("x", `${this.x}`);
+        this.rectElement.setAttribute("y", `${this.y}`);
     }
 }

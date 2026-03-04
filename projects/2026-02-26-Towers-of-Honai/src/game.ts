@@ -86,12 +86,19 @@ export class Game {
       alert('Invalid move! You cannot place a larger disk on a smaller one.');
       return;
     }
-    disk.updatePos(100, 100);
     fromStack.pop();
     toStack.push(disk); // Pop and push only if valid
     this.moves++;
+    this.calculateNewPos(start,end,disk)
     this.output.textContent = `${this.moves}`
-
+  }
+  private calculateNewPos(start:number,end:number,disk:Disk){
+    const length = this.stackOfStacks[end]?.length;
+    const y = 430-length!*50;
+    const xMovement = end-start;
+    const x = xMovement*250;
+    console.log(x);
+    disk.updatePos(x,y);
   }
   public reset() {
     this.stackOfStacks = [];
