@@ -50,6 +50,7 @@ export class Game {
   public handleInput(button:number) {
     if(this.move.start === -1){
       this.move.start = button;
+      this.stackOfStacks[0]![3]!.selected =true;
     }
     else if(this.move.end ===-1){
       this.move.end = button; 

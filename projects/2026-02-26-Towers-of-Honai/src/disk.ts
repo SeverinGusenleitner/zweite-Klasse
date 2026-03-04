@@ -32,10 +32,10 @@ export class Disk{
     }
     public set selected(selected:boolean){
         if(selected === true){
-            this.rectElement.classList = "selected"
+            this.rectElement.classList.add("selected");
         }
         else{
-            this.rectElement.classList = "";
+            this.rectElement.classList.remove("selected");
         }
     }
 }

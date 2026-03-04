@@ -9,7 +9,7 @@ body {
     width: 1000px;
     height: 500px;
     .selected{
-      background-color:yellow;
+      fill:yellow;
     }
   }
   display: flex;
