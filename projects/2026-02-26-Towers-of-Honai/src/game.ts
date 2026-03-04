@@ -81,11 +81,14 @@ export class Game {
       alert('Invalid move! The disk is null or undefined.');
       return;
     }
+    if(toStack.length !== 0&& fromStack.length !== 0){
+        if(toStack[toStack.length-1]!.size < fromStack[fromStack.length-1]!.size){
+          alert('Invalid move! You cannot place a larger disk on a smaller one.');
+          return;
 
-    if (toStack.length && !(disk < (toStack[toStack.length - 1] ?? Infinity))) {
-      alert('Invalid move! You cannot place a larger disk on a smaller one.');
-      return;
+        }
     }
+
     fromStack.pop();
     toStack.push(disk); // Pop and push only if valid
     this.moves++;
