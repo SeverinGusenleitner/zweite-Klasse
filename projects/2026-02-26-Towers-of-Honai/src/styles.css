@@ -9,7 +9,8 @@ body {
     width: 1000px;
     height: 500px;
     .selected{
-      fill:yellow;
+      stroke: #F8FAFC;
+      stroke-width: 4px;
     }
   }
   display: flex;

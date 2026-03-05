@@ -25,7 +25,6 @@ export class Game {
     this.stackOfStacks.push(stack);
     this.stackOfStacks.push([]);
     this.stackOfStacks.push([]);
-    this.stackOfStacks.push([]);
   }
   private checkWin() {}
   private createTowersAndBase() {
@@ -50,13 +49,17 @@ export class Game {
   public handleInput(button:number) {
     if(this.move.start === -1){
       this.move.start = button;
-      this.stackOfStacks[0]![3]!.selected =true;
+      this.stackOfStacks[button]![this.stackOfStacks[button]!.length-1]!.selected = true;
     }
-    else if(this.move.end ===-1){
-      this.move.end = button; 
+    else if(this.move.end === -1){
+      this.move.end = button;
     }
     
     if(this.move.start !== -1 && this.move.end !== -1){
+      console.log(this.move.start)
+      console.log(this.stackOfStacks[this.move.start]!.length-1)
+      this.stackOfStacks[this.move.start]![this.stackOfStacks[this.move.start]!?.length-1]!.selected = false;
+
       this.moveDisk(this.move.start,this.move.end);
       this.move.start = -1;
       this.move.end = -1;
@@ -101,7 +104,6 @@ export class Game {
     const y = 430-length!*50;
     const xMovement = end-start;
     const x = xMovement*250;
-    console.log(x);
     disk.updatePos(x,y);
   }
   public reset() {
