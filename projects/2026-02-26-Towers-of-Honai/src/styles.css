@@ -10,7 +10,12 @@ body {
     height: 500px;
     .selected{
       stroke: #F8FAFC;
-      stroke-width: 4px;
+      stroke-width:4px;
+    }
+    .won{
+      fill: #ffd700;
+      stroke: #d2b300;
+      stroke-width:4px;
     }
   }
   display: flex;

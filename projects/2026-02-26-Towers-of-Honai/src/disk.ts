@@ -38,4 +38,11 @@ export class Disk{
             this.rectElement.classList.remove("selected");
         }
     }
+    public set won(won:boolean){
+        if(won === true){
+            this.rectElement.classList.add("won");
+        }else{
+            this.rectElement.classList.remove("won");
+        }
+    }
 }
