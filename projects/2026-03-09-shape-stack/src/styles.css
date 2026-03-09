@@ -1,0 +1,26 @@
+body{
+    display:flex;
+    justify-content: center;
+    #container{
+        background-color:antiquewhite;
+        border-radius:15px;
+        padding:15px;
+        #shape-selector{
+            height:100px;
+            width:200px;
+            background-color: rgb(255, 250, 244);
+            border-radius:15px;
+            margin-bottom:15px;
+        }
+        #shape-stack{
+            background-color: rgb(255, 250, 244);
+            height:100px;
+            
+            border-radius:15px;
+            display:flex;
+            .circle{
+                background-color:black;w
+            }
+        }
+    }
+}
