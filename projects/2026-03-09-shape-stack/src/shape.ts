@@ -18,6 +18,6 @@ export class Circle extends Shape{
 export class Square extends Shape{
     constructor(){
         super();
-        this.shape.className = "rectangle"
+        this.shape.className = "square"
     }
 }

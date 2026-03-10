@@ -5,12 +5,28 @@ body{
         background-color:antiquewhite;
         border-radius:15px;
         padding:15px;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         #shape-selector{
+        display:flex;
+        justify-content: center;
+            align-items:center;
             height:100px;
             width:200px;
             background-color: rgb(255, 250, 244);
             border-radius:15px;
             margin-bottom:15px;
+            button{
+                height:30px;
+                border:none;
+                background-color:rgb(255, 186, 96);
+                border-radius:15px;
+                color:white;
+            }button:active{
+                background-color:rgb(255, 168, 55);
+            }
         }
         #shape-stack{
             background-color: rgb(255, 250, 244);
@@ -19,7 +35,11 @@ body{
             border-radius:15px;
             display:flex;
             .circle{
-                background-color:black;w
+                background-color:rgb(255, 0, 0);
+                border-radius:50%;
+            }
+            .square{
+                background-color:blue;
             }
         }
     }

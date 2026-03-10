@@ -5,11 +5,15 @@ export class ShapeStack{
     constructor(shapeStackId:string = "shape-stack"){
         this.shapeStack = document.getElementById(shapeStackId) as HTMLDivElement;
     }
-    public createNewShape(shape:ShapeType){
-        if(shape === ShapeType.CIRCLE){
+    public createNewShape(action:ShapeType|string){
+        if(action === "remove"){
+            this.shapeStack.lastElementChild?.remove();
+        }
+        else if(action === ShapeType.CIRCLE){
             const shape = new Circle();
-        }else{
+        }else {
             const shape = new Square();
         }
     }
+
 }
