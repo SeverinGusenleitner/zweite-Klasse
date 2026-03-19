@@ -31,7 +31,6 @@ export abstract class TrainPart {
      * it with the appropriate `PartRestriction` member.
      */
 
-    abstract readonly restriction: PartRestriction;
 
     /**
      * The maximum cargo weight this part contributes, in tons.
@@ -58,8 +57,6 @@ export abstract class TrainPart {
     abstract render(): HTMLElement;
 }
 export class Locomotive extends TrainPart {
-    override readonly restriction: PartRestriction =
-        PartRestriction.MustBeFirst;
     override render() {
         const item = document.createElement('div') as HTMLDivElement;
         item.classList.add('locomotive');
@@ -76,7 +73,6 @@ export class Locomotive extends TrainPart {
     }
 }
 export class Passenger extends TrainPart {
-    override readonly restriction: PartRestriction = PartRestriction.None;
     override render() {
         const item = document.createElement('div') as HTMLDivElement;
         item.classList.add('passenger');
@@ -93,7 +89,6 @@ export class Passenger extends TrainPart {
     }
 }
 export class Cargo extends TrainPart {
-    override readonly restriction: PartRestriction = PartRestriction.None;
     override get cargoWeightTons(): number {
         return 35;
     }
@@ -113,7 +108,6 @@ export class Cargo extends TrainPart {
     }
 }
 export class Dining extends TrainPart {
-    override readonly restriction: PartRestriction = PartRestriction.None;
     override render() {
         const item = document.createElement('div') as HTMLDivElement;
         item.classList.add('dining');
@@ -130,7 +124,6 @@ export class Dining extends TrainPart {
     }
 }
 export class Caboose extends TrainPart {
-    override readonly restriction: PartRestriction = PartRestriction.MustBeLast;
     override render() {
         const item = document.createElement('div') as HTMLDivElement;
         item.classList.add('caboose');
@@ -156,38 +149,7 @@ export class Train {
         this.container = document.getElementById(containerId) as HTMLDivElement;
         this.render();
     }
-    public handleInput(button: string) {
-        this.clearError();
-        if (button !== 'locomotive' && this.trainParts.length === 0) {
-            this.throwError('You need to place a locomotive first!');
-            return;
-        }
-        if (this.checkCaboose()) {
-            this.throwError('The caboose must stay at the end of the train!');
-            return;
-        }
 
-        if (button === 'locomotive') {
-            if (this.trainParts.length !== 0) {
-                this.throwError('A train can only have one locomotive!');
-                return;
-            }
-            this.trainParts.push(new Locomotive());
-        } else if (button === 'passenger') {
-            this.trainParts.push(new Passenger());
-        } else if (button === 'cargo') {
-            this.trainParts.push(new Cargo());
-        } else if (button === 'dining') {
-            this.trainParts.push(new Dining());
-        } else if (button === 'caboose') {
-            this.trainParts.push(new Caboose());
-        }
-        if (this.checkWeight() && this.warned === false) {
-            this.throwError('Warning: this train is carrying a lot of cargo!');
-            this.warned = true;
-        }
-        this.render();
-    }
     private throwError(message: string): void {
         this.errorEl.textContent = message;
     }
@@ -205,14 +167,14 @@ export class Train {
         this.clearError();
         this.render();
     }
-    private checkCaboose() {
+    private checkCaboose():boolean {
         const lastElement = this.trainParts[this.trainParts.length - 1];
         if (lastElement instanceof Caboose) {
             return true;
         }
         return false;
     }
-    private checkWeight() {
+    private checkWeight():boolean {
         let totalWeight = 0;
         for (const part of this.trainParts) {
             totalWeight += part.cargoWeightTons;
@@ -221,5 +183,56 @@ export class Train {
             return true;
         }
         return false;
+    }
+    private checkLocomotive():boolean{
+        for(const part of this.trainParts){
+            if(part instanceof Locomotive){
+                return true;
+            }
+        }
+        return false;
+    }
+     checkErrors(button:string){
+        if (button !== 'locomotive' && this.trainParts.length === 0) {
+            this.throwError('You need to place a locomotive first!');
+            return true;
+        }
+        if (button === "locomotive" && this.checkLocomotive()) {
+            this.throwError('A train can only have one locomotive!');
+            return true;
+        }
+        if (this.checkCaboose()) {
+            this.throwError('The caboose must stay at the end of the train!');
+            return true;
+        }
+        return false
+    }
+     checkWarnings():void{
+        if (this.checkWeight() && this.warned === false) {
+            this.throwError('Warning: this train is carrying a lot of cargo!');
+            this.warned = true;
+        }
+    }
+
+     createLocomotive(): void {
+        this.trainParts.push(new Locomotive());
+        this.render();
+    }
+     createPassenger():void{
+        this.trainParts.push(new Passenger());
+        this.render();
+
+    }
+     createCargo():void{
+        this.trainParts.push(new Cargo());
+        this.render();
+    }
+     createDining():void{
+        this.trainParts.push(new Dining());
+        this.render();
+    }
+     createCaboose():void{
+        this.trainParts.push(new Caboose());
+        this.render();
     }
 }

@@ -17,7 +17,21 @@ function buildPartGrid(parentId: string): void {
     for (const option of PART_OPTIONS) {
         const button = document.createElement('button');
         button.textContent = option.label;
-        button.addEventListener('click', () => train.handleInput(option.value));
+        button.addEventListener('click', () => {
+            if(train.checkErrors(option.value)){
+                return
+            }
+            switch(option.value){
+                case "locomotive":train.createLocomotive(); break;
+                case "passenger": train.createPassenger(); break;
+                case "cargo": train.createCargo(); break;
+                case "dining": train.createDining();break;
+                case "caboose": train.createCaboose();break;
+                default: break;
+            }
+            train.checkWarnings();
+        }
+        );
         grid.appendChild(button);
     }
 }
