@@ -64,8 +64,12 @@ export class Locomotive extends TrainPart {
 
         const header = document.createElement('div') as HTMLHeadElement;
         header.textContent = 'LOCOMOTIVE';
+        header.className = "part-title";
+
         const text = document.createElement('div') as HTMLSpanElement;
         text.textContent = '2400 kW';
+        text.className = "part-detail";
+
         item.appendChild(header);
         item.appendChild(text);
 
@@ -80,8 +84,12 @@ export class Passenger extends TrainPart {
 
         const header = document.createElement('div') as HTMLDivElement;
         header.textContent = 'PASSENGER';
+        header.className = "part-title";
+
         const text = document.createElement('div') as HTMLDivElement;
         text.textContent = '48 seats';
+        text.className = "part-detail";
+
         item.appendChild(header);
         item.appendChild(text);
 
@@ -99,8 +107,12 @@ export class Cargo extends TrainPart {
 
         const header = document.createElement('div') as HTMLDivElement;
         header.textContent = 'CARGO';
+        header.className = "part-title";
+
         const text = document.createElement('div') as HTMLDivElement;
         text.textContent = '35 t max';
+        text.className = "part-detail";
+
         item.appendChild(header);
         item.appendChild(text);
 
@@ -115,8 +127,12 @@ export class Dining extends TrainPart {
 
         const header = document.createElement('div') as HTMLDivElement;
         header.textContent = 'DINING';
+        header.className = "part-title";
+
         const text = document.createElement('div') as HTMLDivElement;
         text.textContent = '8 tables';
+        text.className = "part-detail";
+
         item.appendChild(header);
         item.appendChild(text);
 
@@ -131,8 +147,12 @@ export class Caboose extends TrainPart {
 
         const header = document.createElement('div') as HTMLDivElement;
         header.textContent = 'CABOOSE';
+        header.className = "part-title";
+
         const text = document.createElement('div') as HTMLDivElement;
         text.textContent = '2 crew';
+        text.className = "part-detail";
+
         item.appendChild(header);
         item.appendChild(text);
 
@@ -217,22 +237,30 @@ export class Train {
      createLocomotive(): void {
         this.trainParts.push(new Locomotive());
         this.render();
+        this.errorEl.innerHTML = "";
     }
      createPassenger():void{
         this.trainParts.push(new Passenger());
         this.render();
+        this.errorEl.innerHTML = "";
 
     }
      createCargo():void{
         this.trainParts.push(new Cargo());
         this.render();
+        this.errorEl.innerHTML = "";
+
     }
      createDining():void{
         this.trainParts.push(new Dining());
         this.render();
+        this.errorEl.innerHTML = "";
+
     }
      createCaboose():void{
         this.trainParts.push(new Caboose());
         this.render();
+        this.errorEl.innerHTML = "";
+
     }
 }
