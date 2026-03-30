@@ -8,4 +8,5 @@ addButton.addEventListener("click", ()=>{
         return
     }
     const task = new Task(input.value);
+    input.value = "";
 })
