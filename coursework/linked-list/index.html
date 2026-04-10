@@ -1,12 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Startercode</title>
-</head>
-<body>
-    <h1 id="helloWorldHeader">Hello World</h1>
+  </head>
+  <body>
+    <div id="song-player">
+      <h2>Song Player</h2>
+      <div id="input-form">
+        <div id="inputs">
+            <input id="song" type="text" placeholder="Song" />
+            <input id="artist" type="text" placeholder="Artist" />
+        </div>
+        <div id="buttons">
+            <button id="add-to-tail">Add</button> 
+            <button id="add-to-head">Add in Start</button>
+            <div id="insert-container">
+                <input type="text" id="index-input" placeholder="index">
+                <button id="insert-inbetween">Insert inbetween</button>
+            </div>
+        </div>
+      </div>
+      <div id="song-list"></div>
+    </div>
     <script src="./src/index.ts" type="module"></script>
-</body>
+  </body>
 </html>

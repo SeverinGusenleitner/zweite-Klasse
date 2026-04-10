@@ -1,0 +1,41 @@
+body{
+    background-color:rgb(53, 53, 53);
+    color:white;
+    font-family:sans-serif;
+    display:flex;
+    justify-content: center;
+
+    #song-player{
+        border:2px solid rgb(29, 29, 29);
+        border-radius:10px;
+        h2{
+            justify-self: center;
+        }
+
+        #input-form{
+            display:flex;
+            flex-direction:column;
+            justify-content: center;
+            align-items: center;
+            #inputs{
+                input{
+                    width:100px;
+                }
+            }
+            #buttons{
+                display:flex;
+                button{
+                    width:100px;
+                    margin:10px;
+
+                }
+                div{
+                    input{
+                        
+                    }
+                }
+            }
+        }
+    }
+
+}
