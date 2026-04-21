@@ -1,4 +1,4 @@
-import { LinkedList} from "./linkedList";
+import { LinkedList} from "./LinkedList.ts";
 import './styles.css';
 const linkedList = new LinkedList();
 linkedList.addNodeInStart({title:"flashing lights",artist:"kanye west"});
