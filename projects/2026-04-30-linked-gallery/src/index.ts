@@ -104,7 +104,7 @@ insertBtn.addEventListener("click", () => {
     showError("Please enter a title, a url and a time");
     return;
   }
-  list.insertAtBeginning(title, url, time);
+  list.insertBefore(title, url, time);
   titleInput.value = "";
   urlInput.value = "";
   timeInput.value = "";
