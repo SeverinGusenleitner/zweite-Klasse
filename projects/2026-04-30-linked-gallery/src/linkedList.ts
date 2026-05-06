@@ -109,19 +109,22 @@ export class LinkedList {
   }
 
   insertBefore(title: string, url: string,creationTime:number){
-    let current:Node|null = this.head;
-    if(this.head === null){
-      this.insertAtBeginning(title,url,creationTime);
-      return;
-    }
-    while(current?.next !== null&&current?.next.data.creationTime! > creationTime){
-      current = current!.next;
-    }
-    if(current === null){
+    if (this.find(title) !== null) {
       return;
     }
 
-    const newNode = new Node({ title, imageUrl: url ,creationTime});
+    const newNode = new Node({ title, imageUrl: url, creationTime });
+
+    if (this.head === null || creationTime > this.head.data.creationTime) {
+      this.insertAtBeginning(title,url,creationTime);
+      return
+    }
+
+    let current: Node = this.head;
+    while (current.next !== null && current.next.data.creationTime > creationTime) {
+      current = current.next;
+    }
+
     newNode.next = current.next;
     current.next = newNode;
   }
