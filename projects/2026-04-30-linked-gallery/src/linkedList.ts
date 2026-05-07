@@ -108,22 +108,24 @@ export class LinkedList {
     return true;
   }
 
-  insertBefore(title: string, url: string,creationTime:number){
+  insertBefore(title: string, url: string, creationTime:number){
+    // title already exists
     if (this.find(title) !== null) {
       return;
     }
 
-    const newNode = new Node({ title, imageUrl: url, creationTime });
-
-    if (this.head === null || creationTime > this.head.data.creationTime) {
+    // there is no head or the item at the head has a bigger creation time than the new element
+    if (this.head === null || creationTime < this.head.data.creationTime) {
       this.insertAtBeginning(title,url,creationTime);
       return
     }
-
+    
     let current: Node = this.head;
-    while (current.next !== null && current.next.data.creationTime > creationTime) {
+    while (current.next !== null && current.next.data.creationTime < creationTime) {
       current = current.next;
     }
+
+    const newNode = new Node({ title, imageUrl: url, creationTime });
 
     newNode.next = current.next;
     current.next = newNode;

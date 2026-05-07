@@ -30,7 +30,7 @@ function render(): void {
 
     for (const i of images) {
       const titleSpan = document.createElement("span") as HTMLSpanElement;
-      titleSpan.textContent = i.title;
+      titleSpan.textContent = `name: ${i.title}`;
       const image = document.createElement("img") as HTMLImageElement;
       image.src = i.imageUrl
       image.style.width = "200px";
@@ -38,10 +38,10 @@ function render(): void {
       const timeSpan = document.createElement("span") as HTMLSpanElement;
       timeSpan.textContent = `Created at: ${i.creationTime}`;
       const container = document.createElement("div") as HTMLDivElement;
-      const upButton =document.createElement("button") as HTMLButtonElement;
-      upButton.textContent = "U";
+      const upButton = document.createElement("button") as HTMLButtonElement;
+      upButton.textContent = "+";
       const downButton = document.createElement("button") as HTMLButtonElement;
-      downButton.textContent = "D";
+      downButton.textContent = "-";
       const buttoncontainer = document.createElement("div") as HTMLDivElement;
       buttoncontainer.appendChild(timeSpan)
       buttoncontainer.appendChild(upButton);
