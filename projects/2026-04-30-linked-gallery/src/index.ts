@@ -1,14 +1,14 @@
-import { LinkedList, Time } from './linkedList';
+import { LinkedList, Time, Image, Node } from './linkedList';
 import './styles.css';
 // ---------------------------------------------------------------------------
 // Set up the list with some initial songs so students see a non-empty state.
 // ---------------------------------------------------------------------------
-const list = new LinkedList();
+const list = new LinkedList<Image>();
 
 // ---------------------------------------------------------------------------
 // Get references to all DOM elements we need.
 // ---------------------------------------------------------------------------
-const galeryDiv = document.getElementById('playlist') as HTMLDivElement;
+const galeryDiv = document.getElementById('galery') as HTMLDivElement;
 const titleInput = document.getElementById('title-input') as HTMLInputElement;
 const urlInput = document.getElementById('url-input') as HTMLInputElement;
 const insertBtn = document.getElementById('insert-btn') as HTMLButtonElement;
@@ -52,13 +52,15 @@ function render(): void {
     upButton.addEventListener('click', () => {
       i.creationTime.hours += 1;
       list.delete(i.title);
-      list.insertBefore(i.title, i.imageUrl, i.creationTime);
+      const node = new Node<Image>({ title: i.title, imageUrl: i.imageUrl, creationTime: i.creationTime });
+      list.insertBefore(node);
       render();
     });
     downButton.addEventListener('click', () => {
       i.creationTime.hours -= 1;
       list.delete(i.title);
-      list.insertBefore(i.title, i.imageUrl, i.creationTime);
+      const node = new Node<Image>({ title: i.title, imageUrl: i.imageUrl, creationTime: i.creationTime });
+      list.insertBefore(node);
       render();
     });
   }
@@ -102,7 +104,8 @@ insertBtn.addEventListener('click', () => {
     hours: date.getHours(),
     minutes: date.getMinutes(),
   };
-  list.insertBefore(title, url, time);
+  const node = new Node<Image>({ title: title, imageUrl: url, creationTime: time });
+  list.insertBefore(node);
   titleInput.value = '';
   urlInput.value = '';
   render();
