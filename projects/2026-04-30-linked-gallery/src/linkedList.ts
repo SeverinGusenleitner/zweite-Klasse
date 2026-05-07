@@ -4,9 +4,12 @@
 export type Image = {
   title: string;
   imageUrl: string;
-  creationTime:number;
+  creationTime:Time;
 };
-
+export type Time = {
+  hours:number,
+  minutes:number,
+}
 /**
  * A single node in a singly-linked list.
  *
@@ -97,7 +100,7 @@ export class LinkedList {
    * @param url  Song artist.
    * @returns       true if inserted, false if title already exists.
    */
-  insertAtBeginning(title: string, url: string,creationTime:number): boolean {
+  insertAtBeginning(title: string, url: string,creationTime:Time): boolean {
     if (this.find(title) !== null) {
       return false;   // duplicate — reject
     }
@@ -108,20 +111,20 @@ export class LinkedList {
     return true;
   }
 
-  insertBefore(title: string, url: string, creationTime:number){
+  insertBefore(title: string, url: string, creationTime:Time){
     // title already exists
     if (this.find(title) !== null) {
       return;
     }
-
+    
     // there is no head or the item at the head has a bigger creation time than the new element
-    if (this.head === null || creationTime < this.head.data.creationTime) {
+    if (this.head === null || this.convertTimeToNumber(creationTime) < this.convertTimeToNumber(this.head.data.creationTime)) {
       this.insertAtBeginning(title,url,creationTime);
       return
     }
     
     let current: Node = this.head;
-    while (current.next !== null && current.next.data.creationTime < creationTime) {
+    while (current.next !== null && this.convertTimeToNumber(current.next.data.creationTime) < this.convertTimeToNumber(creationTime)) {
       current = current.next;
     }
 
@@ -130,7 +133,10 @@ export class LinkedList {
     newNode.next = current.next;
     current.next = newNode;
   }
-  
+  private convertTimeToNumber(time:Time):number{
+    const total = time.hours*60+time.minutes;
+    return total;
+  }
 
   // ---------------------------------------------------------------------------
   // delete
