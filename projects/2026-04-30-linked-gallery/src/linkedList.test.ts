@@ -1,9 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { LinkedList, Node,Image,Time } from "./linkedList";
-
-// Each `describe` block groups related tests for one method.
-// `beforeEach` runs before every test, giving each test a fresh list — so
-// tests cannot influence each other through shared state.
+import { LinkedList, Node, Image } from "./linkedList";
 
 describe("LinkedList", () => {
   let list: LinkedList<Image>;
@@ -17,29 +13,20 @@ describe("LinkedList", () => {
       expect(list.head).toBeNull();
     });
 
-    it("reports isEmpty() === true", () => {
-      expect(list.isEmpty()).toBe(true);
-    });
-
-    it("has size 0", () => {
-      expect(list.size()).toBe(0);
-    });
-
     it("returns an empty array from toArray()", () => {
       expect(list.toArray()).toEqual([]);
     });
   });
 
   describe("insertAtBeginning", () => {
-    it("returns true when the song is new", () => {
-      const node = new Node<Image>({title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}})
+    it("returns true when the item is new", () => {
+      const node = new Node<Image>({ title: "A", imageUrl: "xy", creationTime: { hours: 0, minutes: 0 } });
       expect(list.insertAtBeginning(node)).toBe(true);
     });
 
-    it("places the new song at the head", () => {
-      const nodeA = new Node<Image>({title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}})
-
-      const nodeB = new Node<Image>({title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}})
+    it("places the new item at the head", () => {
+      const nodeA = new Node<Image>({ title: "A", imageUrl: "xy", creationTime: { hours: 0, minutes: 0 } });
+      const nodeB = new Node<Image>({ title: "B", imageUrl: "xy", creationTime: { hours: 0, minutes: 1 } });
 
       list.insertAtBeginning(nodeA);
       list.insertAtBeginning(nodeB);
@@ -48,66 +35,64 @@ describe("LinkedList", () => {
     });
 
     it("links the new node to the previous head", () => {
-      const nodeA = new Node<Image>({title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}})
-      const nodeB = new Node<Image>({title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}})
+      const nodeA = new Node<Image>({ title: "A", imageUrl: "xy", creationTime: { hours: 0, minutes: 0 } });
+      const nodeB = new Node<Image>({ title: "B", imageUrl: "xy", creationTime: { hours: 0, minutes: 1 } });
 
       list.insertAtBeginning(nodeA);
       list.insertAtBeginning(nodeB);
 
       expect(list.toArray()).toEqual([
-        {title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}},
-        {title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}},
+        { title: "B", imageUrl: "xy", creationTime: { hours: 0, minutes: 1 } },
+        { title: "A", imageUrl: "xy", creationTime: { hours: 0, minutes: 0 } },
       ]);
     });
 
     it("rejects duplicates and returns false", () => {
-      const node = new Node<Image>({title:"A",imageUrl:"xy",creationTime: {hours:0,minutes:0}})
+      const node = new Node<Image>({ title: "A", imageUrl: "xy", creationTime: { hours: 0, minutes: 0 } });
 
       list.insertAtBeginning(node);
 
-      expect(list.insertAtBeginning(node)).toBe(false);
-      expect(list.size()).toBe(1);
+      const duplicate = new Node<Image>({ title: "A", imageUrl: "xy", creationTime: { hours: 0, minutes: 0 } });
+      expect(list.insertAtBeginning(duplicate)).toBe(false);
+      expect(list.toArray().length).toBe(1);
     });
   });
 
-  describe("insertAfter", () => {
-    beforeEach(() => {
-      // Build: A -> B -> C
-      list.insertAtBeginning("C", "Artist C");
-      list.insertAtBeginning("B", "Artist B");
-      list.insertAtBeginning("A", "Artist A");
+  describe("insertBefore (sorted by creationTime)", () => {
+    it("inserts nodes keeping ascending time order", () => {
+      const nodeA = new Node<Image>({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 30 } });
+      const nodeB = new Node<Image>({ title: "B", imageUrl: "u", creationTime: { hours: 0, minutes: 20 } });
+      const nodeC = new Node<Image>({ title: "C", imageUrl: "u", creationTime: { hours: 0, minutes: 10 } });
+
+      list.insertBefore(nodeA);
+      list.insertBefore(nodeB);
+      list.insertBefore(nodeC);
+
+      expect(list.toArray().map((s) => s.title)).toEqual(["C", "B", "A"]);
     });
 
-    it("inserts in the middle of the list", () => {
-      const ok = list.insertAfter("A", "X", "Artist X");
+    it("rejects duplicates when inserting by title", () => {
+      const node = new Node<Image>({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 10 } });
 
-      expect(ok).toBe(true);
-      expect(list.toArray().map((s) => s.title)).toEqual(["A", "X", "B", "C"]);
-    });
+      list.insertBefore(node);
+      const dup = new Node<Image>({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 5 } });
+      list.insertBefore(dup);
 
-    it("inserts at the end of the list", () => {
-      list.insertAfter("C", "X", "Artist X");
-
-      expect(list.toArray().map((s) => s.title)).toEqual(["A", "B", "C", "X"]);
-    });
-
-    it("returns false if the anchor title does not exist", () => {
-      expect(list.insertAfter("ZZZ", "X", "Artist X")).toBe(false);
-      expect(list.size()).toBe(3);
-    });
-
-    it("rejects duplicates", () => {
-      expect(list.insertAfter("A", "B", "Artist B")).toBe(false);
-      expect(list.size()).toBe(3);
+      expect(list.toArray().length).toBe(1);
+      expect(list.toArray()[0].creationTime.minutes).toBe(10);
     });
   });
 
   describe("delete", () => {
     beforeEach(() => {
-      // Build: A -> B -> C
-      list.insertAtBeginning("C", "Artist C");
-      list.insertAtBeginning("B", "Artist B");
-      list.insertAtBeginning("A", "Artist A");
+      // Build: A -> B -> C (by inserting at beginning)
+      const nodeC = new Node<Image>({ title: "C", imageUrl: "u", creationTime: { hours: 0, minutes: 2 } });
+      const nodeB = new Node<Image>({ title: "B", imageUrl: "u", creationTime: { hours: 0, minutes: 1 } });
+      const nodeA = new Node<Image>({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 0 } });
+
+      list.insertAtBeginning(nodeC);
+      list.insertAtBeginning(nodeB);
+      list.insertAtBeginning(nodeA);
     });
 
     it("removes the head", () => {
@@ -131,22 +116,23 @@ describe("LinkedList", () => {
 
     it("returns false when the title is not in the list", () => {
       expect(list.delete("ZZZ")).toBe(false);
-      expect(list.size()).toBe(3);
+      expect(list.toArray().length).toBe(3);
     });
 
     it("returns false on an empty list", () => {
-      const empty = new LinkedList();
+      const empty = new LinkedList<Image>();
       expect(empty.delete("A")).toBe(false);
     });
 
     it("makes the list empty when the only element is removed", () => {
-      const tiny = new LinkedList();
-      tiny.insertAtBeginning("only", "Artist");
+      const tiny = new LinkedList<Image>();
+      const only = new Node<Image>({ title: "only", imageUrl: "u", creationTime: { hours: 0, minutes: 0 } });
+      tiny.insertAtBeginning(only);
 
       tiny.delete("only");
 
-      expect(tiny.isEmpty()).toBe(true);
       expect(tiny.head).toBeNull();
+      expect(tiny.toArray().length).toBe(0);
     });
   });
 
@@ -156,28 +142,34 @@ describe("LinkedList", () => {
     });
 
     it("returns the matching node", () => {
-      list.insertAtBeginning("A", "Artist A");
+      const node = new Node<Image>({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 0 } });
+      list.insertAtBeginning(node);
 
       const found = list.find("A");
 
       expect(found).toBeInstanceOf(Node);
-      expect(found?.data).toEqual({ title: "A", artist: "Artist A" });
+      expect(found?.data).toEqual({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 0 } });
     });
 
     it("returns null when no node matches", () => {
-      list.insertAtBeginning("A", "Artist A");
+      const node = new Node<Image>({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 0 } });
+      list.insertAtBeginning(node);
 
       expect(list.find("ZZZ")).toBeNull();
     });
   });
 
-  describe("size", () => {
+  describe("counting nodes via toArray", () => {
     it("counts every node in the list", () => {
-      list.insertAtBeginning("A", "Artist A");
-      list.insertAtBeginning("B", "Artist B");
-      list.insertAtBeginning("C", "Artist C");
+      const a = new Node<Image>({ title: "A", imageUrl: "u", creationTime: { hours: 0, minutes: 0 } });
+      const b = new Node<Image>({ title: "B", imageUrl: "u", creationTime: { hours: 0, minutes: 1 } });
+      const c = new Node<Image>({ title: "C", imageUrl: "u", creationTime: { hours: 0, minutes: 2 } });
 
-      expect(list.size()).toBe(3);
+      list.insertAtBeginning(a);
+      list.insertAtBeginning(b);
+      list.insertAtBeginning(c);
+
+      expect(list.toArray().length).toBe(3);
     });
   });
 });
