@@ -1,28 +1,47 @@
 export abstract class Command {
-  value:number
   abstract execute(currentValue: number): number;
   abstract undo(currentValue: number): number;
-  constructor(value:number) {
+}
+
+export class AddCommand extends Command {
+  private value:number;
+  execute(currentValue: number) {
+    return currentValue + this.value;
+  }
+  undo(currentValue: number): number {
+    return currentValue - this.value;
+  }
+  constructor(value:number){
+    super();
     this.value = value;
   }
 }
-export class AddCommand extends Command {
-  execute(currentValue: number) {
-    return currentValue + this.value;
-  }
-  undo(currentValue: number): number {
-    return currentValue - this.value;
-  }
 
+export class ResetCommand extends Command{
+  private savedValue:number = 0;
+  execute(currentValue:number):number{
+    this.savedValue = currentValue;
+    return 0;
+  }
+  undo():number{
+    return this.savedValue;
+  }
 }
+
 export class SubCommand extends Command {
+  private value:number;
   execute(currentValue: number) {
     return currentValue - this.value;
   }
   undo(currentValue: number): number {
     return currentValue + this.value;
   }
+  constructor(value:number){
+    super();
+    this.value = value;
+  }
 }
+
 export class Node<T>{
     next: Node<T> | null;
     data:T;
@@ -31,6 +50,7 @@ export class Node<T>{
       this.data = data;
     }
 }
+
 export class UndoStack <T>{
   head: Node<T> | null = null;
 
