@@ -62,7 +62,7 @@ export class UndoStack <T>{
   }
   pop():T|null{
     if(this.head !== null){
-      const temp = this.head.data
+      const temp = this.head.data;
       this.head = this.head.next;
       return temp;
     }
