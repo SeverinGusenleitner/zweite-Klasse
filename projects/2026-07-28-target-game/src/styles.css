@@ -1,0 +1,26 @@
+body{
+    display:flex;
+    justify-content: center;
+    div{
+        background-color: rgb(255, 234, 150);
+        border-radius:20px;
+        border:2px solid teal;
+    };
+    h2{
+        font-family:Arial, Helvetica, sans-serif;
+        display:flex;
+        justify-content: center;
+    }
+}
+
+.dragging{
+    fill: #4287f5d2;
+}
+.normal{
+    fill: #4287f56b;
+}
+.goal{
+    fill:none;
+    stroke:black;
+    stroke-width:2px;
+}
