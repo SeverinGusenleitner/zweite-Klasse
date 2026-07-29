@@ -16,4 +16,15 @@ class Bar {
     this.barElement.setAttribute('height', `${this.height}`);
     this.svgElement.appendChild(this.barElement);
   }
+  public moveBar(x:number = this.x, y:number = this.y, width:number = this.width, height:number = this.height):void{
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.barElement.setAttribute('x', `${this.x}`);
+    this.barElement.setAttribute('y', `${this.y}`);
+    this.barElement.setAttribute('width', `${this.width}`);
+    this.barElement.setAttribute('height', `${this.height}`);
+  }
 }
+export {Bar};
